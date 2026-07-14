@@ -16,13 +16,13 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
+    - name: Check out code into the Go module directory
+      uses: actions/checkout@v4
+
     - name: Set up Go 1.x
       uses: actions/setup-go@v5
       with:
         go-version-file: go.mod
-
-    - name: Check out code into the Go module directory
-      uses: actions/checkout@v4
 
     # https://github.com/golangci/golangci-lint-action
     - name: Lint
@@ -57,7 +57,7 @@ jobs:
   docker-release:
     name: Docker Release
     runs-on: ubuntu-latest
-    if: github.event_name != 'workflow_dispatch'
+    if: github.repository == 'gorcon/rcon-cli' && github.event_name != 'workflow_dispatch'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
