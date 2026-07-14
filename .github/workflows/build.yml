@@ -26,10 +26,10 @@ jobs:
 
     # https://github.com/golangci/golangci-lint-action
     - name: Lint
-      uses: golangci/golangci-lint-action@v6
+      uses: golangci/golangci-lint-action@v9
       with:
         # Required: the version of golangci-lint is required and must be specified without patch version: we always use the latest patch version.
-        version: v1.61.0
+        version: v2.12
 
         # Optional: working directory, useful for monorepos
         # working-directory: somedir
