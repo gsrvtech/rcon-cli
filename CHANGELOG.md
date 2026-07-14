@@ -4,10 +4,20 @@ All notable changes to this project will be documented in this file.
 **ATTN**: This project uses [semantic versioning](http://semver.org/).
 
 ## [Unreleased]
+### Security
+- Fixed a resource leak in `config_test.go` where the log file was not closed on write error.
+- Bumped Go toolchain to go1.26.5, fixing 3 standard library CVEs (crypto/tls, net/textproto, crypto/x509) reachable from the RCON client dial/handshake path.
+- Removed the unused `golang.org/x/net` indirect dependency (was pinned at v0.20.0 with 9 known vulnerabilities).
+- Updated Docker build image from `golang:1.19.3-alpine` to `golang:1.26.5-alpine3.24`, and the runtime image from unpinned `alpine` to `alpine:3.24`.
+
 ### Updated
-- Updated Go modules (go1.21).
-- Updated golang-ci linter (1.55.2).
-- Updated dependencies.
+- Updated Go toolchain requirement to go1.26.5 (was go1.21).
+- Updated `github.com/gorcon/rcon` v1.3.5 -> v1.4.0.
+- Updated `github.com/gorilla/websocket` v1.5.1 -> v1.5.3.
+- Updated `github.com/urfave/cli/v2` v2.27.1 -> v2.27.7.
+- Updated `github.com/stretchr/testify` v1.7.1 -> v1.11.1.
+- Updated `github.com/cpuguy83/go-md2man/v2` v2.0.3 -> v2.0.7.
+- Updated CI workflow actions (`actions/checkout`, `actions/setup-go`, `golangci-lint-action`, docker actions) to current major versions and golangci-lint to v1.61.0.
 
 ## [v0.10.3] - 2023-03-11
 ### Added

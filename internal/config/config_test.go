@@ -128,7 +128,10 @@ func createFile(name, stringBody string) error {
 		return err
 	}
 
-	_, err = file.WriteString(stringBody)
+	if _, err = file.WriteString(stringBody); err != nil {
+		_ = file.Close()
+		return err
+	}
 
-	return err
+	return file.Close()
 }
