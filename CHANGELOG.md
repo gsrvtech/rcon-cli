@@ -19,13 +19,17 @@ All notable changes to this project will be documented in this file.
 - Updated Docker build image from `golang:1.19.3-alpine` to `golang:1.26.5-alpine3.24`, and the runtime image from unpinned `alpine` to `alpine:3.24`.
 
 ### Updated
-- Updated Go toolchain requirement to go1.26.5 (was go1.21).
+- Updated Go toolchain requirement to go1.26.5 (was go1.21); the declared language version (`go` directive) stays at 1.23, the actual minimum required by dependencies.
 - Updated `github.com/gorcon/rcon` v1.3.5 -> v1.4.0.
 - Updated `github.com/gorilla/websocket` v1.5.1 -> v1.5.3.
 - Updated `github.com/urfave/cli/v2` v2.27.1 -> v2.27.7.
 - Updated `github.com/stretchr/testify` v1.7.1 -> v1.11.1.
 - Updated `github.com/cpuguy83/go-md2man/v2` v2.0.3 -> v2.0.7.
-- Updated CI workflow actions (`actions/checkout`, `actions/setup-go`, `golangci-lint-action`, docker actions) to current major versions and golangci-lint to v1.61.0.
+- Updated CI workflow actions (`actions/checkout`, `actions/setup-go`, `golangci-lint-action`) to current major versions and golangci-lint to v1.61.0.
+- Added a `workflow_dispatch` trigger so the build job can be run manually from the Actions tab.
+
+### Removed
+- Removed the `docker-release` job from the CI workflow (published images to a Docker Hub account this fork doesn't control).
 
 ## [v0.10.3] - 2023-03-11
 ### Added
