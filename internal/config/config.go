@@ -67,7 +67,7 @@ func (cfg *Config) ParseFromFile(name string) error {
 		return fmt.Errorf("get abs path: %w", err)
 	}
 
-	name = home + "/" + DefaultConfigName
+	name = filepath.Join(home, DefaultConfigName)
 	if err = cfg.parse(name); err != nil && !errors.Is(err, os.ErrNotExist) {
 		return err
 	}

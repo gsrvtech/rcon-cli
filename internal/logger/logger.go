@@ -17,36 +17,26 @@ const DefaultLineFormat = "[%s] %s: %s\n%s\n\n"
 // ErrEmptyFileName is returned when trying to open file with empty name.
 var ErrEmptyFileName = errors.New("empty file name")
 
-// OpenFile opens file for append strings. Creates file if file not exist.
+// OpenFile opens file for append strings. Creates file and its parent
+// directory if they do not exist.
 func OpenFile(name string) (*os.File, error) {
 	if name == "" {
 		return nil, ErrEmptyFileName
 	}
 
-	var file *os.File
+	if dir := filepath.Dir(name); dir != "." {
+		const dirPerm = 0o755
 
-	switch _, err := os.Stat(name); {
-	case err == nil:
-		const perm = 0o666
-
-		file, err = os.OpenFile(name, os.O_APPEND|os.O_WRONLY, perm)
-		if err != nil {
-			return file, fmt.Errorf("open: %w", err)
+		if err := os.MkdirAll(dir, dirPerm); err != nil {
+			return nil, fmt.Errorf("create directory: %w", err)
 		}
-	case os.IsNotExist(err):
-		dir := filepath.Dir(name)
-		if _, err = os.Stat(dir); os.IsNotExist(err) {
-			const perm = 0o766
+	}
 
-			if err = os.MkdirAll(dir, perm); err != nil {
-				return file, fmt.Errorf("create directory: %w", err)
-			}
-		}
+	const filePerm = 0o644
 
-		file, err = os.Create(name)
-		if err != nil {
-			return file, fmt.Errorf("create: %w", err)
-		}
+	file, err := os.OpenFile(name, os.O_APPEND|os.O_CREATE|os.O_WRONLY, filePerm)
+	if err != nil {
+		return nil, fmt.Errorf("open: %w", err)
 	}
 
 	return file, nil

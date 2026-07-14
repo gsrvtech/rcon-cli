@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 **ATTN**: This project uses [semantic versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Documented ARK: Survival Ascended as a supported game. It speaks the same basic Source RCON protocol as ARK: Survival Evolved, so no code changes were needed.
+
+### Changed
+- Simplified `logger.OpenFile` to a single `os.OpenFile` call with `O_CREATE|O_APPEND` instead of stat-then-branch, removing a TOCTOU race and tightening file/directory permissions (0666/0766 -> 0644/0755).
+- Used `filepath.Join` instead of manual string concatenation for the default config path, fixing path separator handling on Windows.
+- Reduced repeated map lookups in `Executor.NewSession` by reading the config environment once instead of on every field.
+
 ### Security
 - Fixed a resource leak in `config_test.go` where the log file was not closed on write error.
 - Bumped Go toolchain to go1.26.5, fixing 3 standard library CVEs (crypto/tls, net/textproto, crypto/x509) reachable from the RCON client dial/handshake path.

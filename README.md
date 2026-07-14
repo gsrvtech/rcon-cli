@@ -11,6 +11,7 @@ CLI for executing queries on a remote [Source dedicated game server](https://dev
 ## Supported Games
 * [7 Days to Die](https://store.steampowered.com/app/251570) (add `-t telnet` to rcon-cli args)
 * [ARK: Survival Evolved](https://store.steampowered.com/app/346110)
+* [ARK: Survival Ascended](https://store.steampowered.com/app/2399830) (uses the same Source RCON protocol as ARK: Survival Evolved)
 * [Avorion](https://store.steampowered.com/app/445220/Avorion/)
 * [Conan Exiles](https://store.steampowered.com/app/440900)
 * [Counter-Strike: Global Offensive](https://store.steampowered.com/app/730)

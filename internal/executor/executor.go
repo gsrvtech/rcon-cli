@@ -104,20 +104,22 @@ func (executor *Executor) NewSession(c *cli.Context) (*config.Session, error) {
 	}
 
 	// Get variables from config environment if flags are not defined.
+	envSession := (*cfg)[env]
+
 	if ses.Address == "" {
-		ses.Address = (*cfg)[env].Address
+		ses.Address = envSession.Address
 	}
 
 	if ses.Password == "" {
-		ses.Password = (*cfg)[env].Password
+		ses.Password = envSession.Password
 	}
 
 	if ses.Log == "" {
-		ses.Log = (*cfg)[env].Log
+		ses.Log = envSession.Log
 	}
 
 	if ses.Type == "" {
-		ses.Type = (*cfg)[env].Type
+		ses.Type = envSession.Type
 	}
 
 	return &ses, nil
@@ -352,10 +354,7 @@ func (executor *Executor) execute(w io.Writer, ses *config.Session, command stri
 		return ErrCommandEmpty
 	}
 
-	var result string
-	var err error
-
-	result, err = executor.client.Execute(command)
+	result, err := executor.client.Execute(command)
 	if result != "" {
 		result = strings.TrimSpace(result)
 		_, _ = fmt.Fprintln(w, result)
