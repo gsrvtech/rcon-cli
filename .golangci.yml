@@ -99,11 +99,6 @@ linters:
     unparam:
       # Inspect exported functions, default is false. Set to true if no external program/library imports your code.
       check-exported: false
-    wrapcheck:
-      # An array of glob patterns to exclude from wrap-checking.
-      ignorePackageGlobs:
-        - encoding/*
-        - github.com/pkg/*
     wsl:
       # If true append is only allowed to be cuddled if appending value is
       # matching variables, fields or types on line above. Default is true.
@@ -146,4 +141,5 @@ formatters:
   settings:
     goimports:
       # put imports beginning with prefix after 3rd-party packages
-      local-prefixes: github.com/gorcon/rcon-cli
+      local-prefixes:
+        - github.com/gorcon/rcon-cli
